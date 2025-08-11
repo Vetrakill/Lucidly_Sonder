@@ -1,0 +1,322 @@
+`kanish-birthday.html`
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Wizard 🧙‍♀️✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(125deg, #2c0b8e, #5c0d61, #c2185b);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Styling for stars in background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+            animation: twinkle 8s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Login Container Styling */
+        .login-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .login-title {
+            color: #ffebec;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+            font-family: 'Caveat', cursive;
+            letter-spacing: 1px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        input::placeholder {
+            color: rgba(255, 235, 236, 0.7);
+        }
+        
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 182, 193, 0.7);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #da18a3, #ed0c9e);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, background 0.5s ease;
+            box-shadow: 0 4px 15px rgba(218, 24, 163, 0.4);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #ff00d9, #e60073);
+            transform: translateY(-3px);
+        }
+        
+        .hint {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Splash Screen Styling */
+        .splash-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #f0e0c1, #debf97, #d4ae7a);
+            z-index: 10;
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .birthday-title {
+            font-family: 'Shadows Into Light', cursive;
+            font-size: 5rem;
+            color: #7d5a3a;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            position: relative;
+            animation: scaleUp 1.5s ease-out forwards;
+        }
+        
+        .birthday-title::before,
+        .birthday-title::after {
+            content: "✨";
+            position: absolute;
+            font-size: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: sparkle 2s ease-in-out infinite alternate;
+        }
+        
+        .birthday-title::before {
+            left: -80px;
+        }
+        
+        .birthday-title::after {
+            right: -80px;
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
+            100% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        }
+        
+        @keyframes scaleUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .subtitle {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #614124;
+            max-width: 800px;
+            line-height: 1.4;
+            margin-top: 20px;
+            animation: fadeIn 4s ease-out forwards;
+            text-align: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .login-title {
+                font-size: 2rem;
+            }
+            
+            .birthday-title {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.7rem;
+            }
+            
+            .birthday-title::before,
+            .birthday-title::after {
+                font-size: 2rem;
+            }
+            
+            .birthday-title::before {
+                left: -50px;
+            }
+            
+            .birthday-title::after {
+                right: -50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container">
+        <h1 class="login-title">For the Wizard 🧙‍♀️✨</h1>
+        <form id="loginForm" class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="submit-btn">Enter Magic Realm</button>
+            <div class="hint">(try "Kanish" and "pookiebear")</div>
+        </form>
+    </div>
+    
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <h1 class="birthday-title">HAPPY BIRTHDAY KANISH🩷</h1>
+        <p class="subtitle">Thank you for being the WIZARD, who held and helped me grow despite my palimpsest thoughts, so contentious they made herculean efforts to end me but couldn't because you withheld me with your winsome words.</p>
+    </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if(username.toLowerCase() === 'kanish' && password.toLowerCase() === 'pookiebear') {
+                document.querySelector('.login-container').style.display = 'none';
+                
+                const splashScreen = document.getElementById('splashScreen');
+                splashScreen.style.display = 'flex';
+                
+                // Wait a moment for display property to apply before fading in
+                setTimeout(() => {
+                    splashScreen.style.opacity = 1;
+                    
+                    // Add a fun birthday greeting effect
+                    document.body.style.background = '#f0e0c1';
+                    document.body.style.transition = 'background 3s ease';
+                }, 20);
+            } else {
+                // Light shake effect for wrong credentials
+                this.classList.add('shake');
+                setTimeout(() => {
+                    this.classList.remove('shake');
+                }, 500);
+            }
+        });
+        
+        // Add some style for the shake animation
+        document.head.innerHTML += '<style>.shake{animation:shake 0.4s linear;}@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-10px);}75%{transform:translateX(10px);}}</style>';
+        
+        // Pre-fill the login fields for demo purposes
+        window.addEventListener('load', () => {
+            document.getElementById('username').value = 'Kanish';
+            document.getElementById('password').value = 'pookiebear';
+        });
+    </script>
+</body>
+</html>
